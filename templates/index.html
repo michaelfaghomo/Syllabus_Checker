@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCU Syllabus Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 VCU Syllabus Checker</h1>
+            <p class="subtitle">Verify your syllabus meets VCU requirements</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📄</div>
+                    <h2>Upload Your Syllabus</h2>
+                    <p>Drag and drop your file here or click to browse</p>
+                    <p class="file-types">Supported formats: PDF, DOCX, TXT</p>
+                    <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+                    <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+                </div>
+                <div id="fileInfo" class="file-info hidden">
+                    <span id="fileName"></span>
+                    <button class="btn-remove" id="removeBtn">✕</button>
+                </div>
+                <button class="btn btn-success" id="checkBtn" disabled>Check Syllabus</button>
+            </section>
+
+            <section class="loading-section hidden" id="loadingSection">
+                <div class="spinner"></div>
+                <p>Analyzing your syllabus...</p>
+            </section>
+
+            <section class="results-section hidden" id="resultsSection">
+                <div class="results-header">
+                    <h2>Analysis Results</h2>
+                    <button class="btn btn-secondary" id="newCheckBtn">Check Another Syllabus</button>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-stats">
+                        <div class="stat">
+                            <div class="stat-value" id="requiredScore">0%</div>
+                            <div class="stat-label">Required Items Found</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="requiredCount">0/14</div>
+                            <div class="stat-label">Requirements Met</div>
+                        </div>
+                    </div>
+                    <div class="summary-status" id="summaryStatus"></div>
+                </div>
+
+                <div class="requirements-container">
+                    <h3>Required Items</h3>
+                    <div id="requiredItems"></div>
+                </div>
+
+                <div class="requirements-container">
+                    <h3>Recommended Items</h3>
+                    <div id="recommendedItems"></div>
+                </div>
+            </section>
+
+            <section class="error-section hidden" id="errorSection">
+                <div class="error-message">
+                    <span class="error-icon">⚠️</span>
+                    <div>
+                        <h3>Error</h3>
+                        <p id="errorMessage"></p>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" id="retryBtn">Try Again</button>
+            </section>
+
+            <section class="info-section">
+                <h3>About This Tool</h3>
+                <p>This tool checks your syllabus against VCU's official requirements. It analyzes your document for the presence of required and recommended elements.</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>✅ Required Items (14)</h4>
+                        <ul>
+                            <li>Course prefix, number, section, and title</li>
+                            <li>Semester term and credit hours</li>
+                            <li>Class meeting details</li>
+                            <li>Instructor information</li>
+                            <li>University course description</li>
+                            <li>Course prerequisites</li>
+                            <li>Student learning outcomes</li>
+                            <li>Required texts and materials</li>
+                            <li>Course schedule</li>
+                            <li>Final exam information</li>
+                            <li>Grading scale</li>
+                            <li>Grade categories and weights</li>
+                            <li>VCU Syllabus Policy link</li>
+                            <li>VCU Libraries statement</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4>💡 Recommended Items (2)</h4>
+                        <ul>
+                            <li>Attendance and punctuality policies</li>
+                            <li>Technology and media policies</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="disclaimer">
+                    <strong>Note:</strong> This tool uses text analysis to detect the presence of required elements. A manual review is still recommended to ensure all requirements are met completely and accurately.
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>VCU Syllabus Checker | <a href="https://provost.vcu.edu/" target="_blank">VCU Provost Website</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
