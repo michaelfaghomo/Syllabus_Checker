@@ -17,53 +17,51 @@
             <section class="upload-section">
                 <div class="upload-area" id="uploadArea">
                     <div class="upload-icon">📄</div>
-                    <h2>Upload Your Syllabus</h2>
-                    <p>Drag and drop your file here or click to browse</p>
-                    <p class="file-types">Supported formats: PDF, DOCX, TXT</p>
-                    <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+                    <h2>Upload Your Syllabi</h2>
+                    <p>Drag and drop your files here or click to browse</p>
+                    <p class="file-types">Supported formats: PDF, DOCX, TXT • Multiple files supported</p>
+                    <input type="file" id="fileInput" accept=".pdf,.docx,.txt" multiple hidden>
                     <button class="btn btn-primary" id="browseBtn">Browse Files</button>
                 </div>
-                <div id="fileInfo" class="file-info hidden">
-                    <span id="fileName"></span>
-                    <button class="btn-remove" id="removeBtn">✕</button>
-                </div>
-                <button class="btn btn-success" id="checkBtn" disabled>Check Syllabus</button>
+                <div id="fileList" class="file-list hidden"></div>
+                <button class="btn btn-success" id="checkBtn" disabled>Check Syllabi</button>
             </section>
 
             <section class="loading-section hidden" id="loadingSection">
                 <div class="spinner"></div>
-                <p>Analyzing your syllabus...</p>
+                <p id="loadingMessage">Analyzing your syllabi...</p>
+                <p id="progressMessage" class="progress-message"></p>
             </section>
 
             <section class="results-section hidden" id="resultsSection">
                 <div class="results-header">
                     <h2>Analysis Results</h2>
-                    <button class="btn btn-secondary" id="newCheckBtn">Check Another Syllabus</button>
+                    <button class="btn btn-secondary" id="newCheckBtn">Check More Syllabi</button>
                 </div>
 
-                <div class="summary-card">
-                    <div class="summary-stats">
-                        <div class="stat">
-                            <div class="stat-value" id="requiredScore">0%</div>
-                            <div class="stat-label">Required Items Found</div>
+                <div id="batchSummary" class="batch-summary hidden">
+                    <h3>📊 Batch Summary</h3>
+                    <div class="batch-stats">
+                        <div class="batch-stat">
+                            <div class="batch-stat-value" id="batchTotal">0</div>
+                            <div class="batch-stat-label">Total Files</div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-value" id="requiredCount">0/14</div>
-                            <div class="stat-label">Requirements Met</div>
+                        <div class="batch-stat">
+                            <div class="batch-stat-value" id="batchSuccessful">0</div>
+                            <div class="batch-stat-label">Successful</div>
+                        </div>
+                        <div class="batch-stat">
+                            <div class="batch-stat-value" id="batchAvgScore">0%</div>
+                            <div class="batch-stat-label">Avg Score</div>
+                        </div>
+                        <div class="batch-stat">
+                            <div class="batch-stat-value" id="batchAvgFound">0</div>
+                            <div class="batch-stat-label">Avg Items Found</div>
                         </div>
                     </div>
-                    <div class="summary-status" id="summaryStatus"></div>
                 </div>
 
-                <div class="requirements-container">
-                    <h3>Required Items</h3>
-                    <div id="requiredItems"></div>
-                </div>
-
-                <div class="requirements-container">
-                    <h3>Recommended Items</h3>
-                    <div id="recommendedItems"></div>
-                </div>
+                <div id="individualResults"></div>
             </section>
 
             <section class="error-section hidden" id="errorSection">
@@ -79,7 +77,7 @@
 
             <section class="info-section">
                 <h3>About This Tool</h3>
-                <p>This tool checks your syllabus against VCU's official requirements. It analyzes your document for the presence of required and recommended elements.</p>
+                <p>This tool checks your syllabi against VCU's official requirements. It analyzes your documents for the presence of required and recommended elements. <strong>You can upload and check multiple syllabi at once!</strong></p>
                 
                 <div class="info-grid">
                     <div class="info-card">
