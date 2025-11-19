@@ -18,24 +18,31 @@ The application will start on `http://localhost:5000`
 
 1. **Open your browser** and navigate to `http://localhost:5000`
 
-2. **Upload a syllabus**:
-   - Click "Browse Files" or drag and drop your file
+2. **Upload syllabus files**:
+   - Click "Browse Files" or drag and drop your files
+   - **NEW**: Select multiple files at once! 
    - Supported formats: PDF, DOCX, TXT
-   - Maximum file size: 16MB
+   - Maximum file size: 16MB per file
+   - You can remove individual files before checking
 
-3. **Check the syllabus**:
-   - Click "Check Syllabus" button
-   - Wait for the analysis to complete (usually takes 1-3 seconds)
+3. **Check the syllabi**:
+   - Click "Check Syllabi" button
+   - Wait for the analysis to complete (usually takes 1-3 seconds per file)
 
 4. **Review results**:
-   - See overall score and number of requirements met
-   - Review each required item with confidence scores
-   - Check recommended items
-   - Green checkmarks (✅) indicate found items
-   - Red X marks (❌) indicate missing items
+   - **Batch Summary** (for multiple files): See overall statistics across all files
+     - Total files processed
+     - Number of successful checks
+     - Average score and items found
+   - **Individual Results**: Each file has its own card showing:
+     - Overall score and requirements met
+     - Expandable details with all required/recommended items
+     - Confidence scores for each requirement
+     - Green checkmarks (✅) indicate found items
+     - Red X marks (❌) indicate missing items
 
-5. **Check another syllabus**:
-   - Click "Check Another Syllabus" to start over
+5. **Check more syllabi**:
+   - Click "Check More Syllabi" to start over
 
 ## What Gets Checked
 
@@ -68,11 +75,12 @@ The confidence score indicates how strongly the system detected each requirement
 
 ## Tips for Best Results
 
-1. **Use clear headers** in your syllabus (e.g., "Course Description", "Grading Scale")
-2. **Include complete information** for each required item
-3. **Use the exact VCU Libraries link**: https://www.library.vcu.edu/
-4. **Include the Provost website link** for syllabus policies
-5. **Format consistently** throughout the document
+1. **Batch checking**: Upload multiple syllabi at once to quickly check all your courses
+2. **Use clear headers** in your syllabus (e.g., "Course Description", "Grading Scale")
+3. **Include complete information** for each required item
+4. **Use the exact VCU Libraries link**: https://www.library.vcu.edu/
+5. **Include the Provost website link** for syllabus policies
+6. **Format consistently** throughout the document
 
 ## Troubleshooting
 

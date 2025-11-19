@@ -28,37 +28,74 @@ def index():
 
 @app.route('/api/check-syllabus', methods=['POST'])
 def check_syllabus():
-    # Check if file was uploaded
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
+    # Check if files were uploaded
+    if 'files' not in request.files:
+        return jsonify({'error': 'No files uploaded'}), 400
     
-    file = request.files['file']
+    files = request.files.getlist('files')
     
-    # Check if file has a name
-    if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
+    # Check if any files were selected
+    if not files or all(f.filename == '' for f in files):
+        return jsonify({'error': 'No files selected'}), 400
     
-    # Check if file type is allowed
-    if not allowed_file(file.filename):
-        return jsonify({'error': 'File type not allowed. Please upload PDF, DOCX, or TXT files.'}), 400
+    results_list = []
+    checker = SyllabusChecker()
     
-    try:
-        # Save the file temporarily
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
+    for file in files:
+        # Skip empty filenames
+        if file.filename == '':
+            continue
+            
+        # Check if file type is allowed
+        if not allowed_file(file.filename):
+            results_list.append({
+                'filename': file.filename,
+                'error': 'File type not allowed. Please upload PDF, DOCX, or TXT files.'
+            })
+            continue
         
-        # Check the syllabus
-        checker = SyllabusChecker()
-        results = checker.check_syllabus(filepath)
+        try:
+            # Save the file temporarily
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            
+            # Check the syllabus
+            results = checker.check_syllabus(filepath)
+            results['filename'] = file.filename
+            
+            # Clean up the uploaded file
+            os.remove(filepath)
+            
+            results_list.append(results)
         
-        # Clean up the uploaded file
-        os.remove(filepath)
-        
-        return jsonify(results)
+        except Exception as e:
+            results_list.append({
+                'filename': file.filename,
+                'error': f'Error processing file: {str(e)}'
+            })
     
-    except Exception as e:
-        return jsonify({'error': f'Error processing file: {str(e)}'}), 500
+    # Calculate batch statistics
+    successful_checks = [r for r in results_list if 'error' not in r]
+    failed_checks = [r for r in results_list if 'error' in r]
+    
+    batch_stats = {
+        'total_files': len(results_list),
+        'successful': len(successful_checks),
+        'failed': len(failed_checks)
+    }
+    
+    if successful_checks:
+        avg_required_percentage = sum(r['required']['percentage'] for r in successful_checks) / len(successful_checks)
+        avg_required_found = sum(r['required']['found'] for r in successful_checks) / len(successful_checks)
+        batch_stats['average_required_percentage'] = round(avg_required_percentage, 1)
+        batch_stats['average_required_found'] = round(avg_required_found, 1)
+    
+    return jsonify({
+        'success': True,
+        'batch_stats': batch_stats,
+        'results': results_list
+    })
 
 @app.route('/api/requirements', methods=['GET'])
 def get_requirements():

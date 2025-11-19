@@ -4,9 +4,10 @@ A web application that allows VCU instructors to upload their syllabi and check 
 
 ## Features
 
-- 📄 **File Upload**: Supports PDF, DOCX, and TXT formats
+- 📄 **Multiple File Upload**: Upload and check multiple syllabi at once - supports PDF, DOCX, and TXT formats
 - ✅ **Requirement Checking**: Validates against 14 required items and 2 recommended items
-- 📊 **Detailed Results**: Shows which requirements are met with confidence scores
+- 📊 **Batch Statistics**: View overall statistics when checking multiple files
+- 📋 **Detailed Results**: Shows which requirements are met with confidence scores for each file
 - 🎨 **Modern UI**: Clean, responsive design with VCU branding
 - 🚀 **Fast Analysis**: Quick text extraction and pattern matching
 
@@ -57,11 +58,16 @@ python app.py
 http://localhost:5000
 ```
 
-3. Upload your syllabus file (PDF, DOCX, or TXT)
+3. Upload your syllabus file(s) - you can select multiple files at once!
+   - PDF, DOCX, or TXT formats supported
+   - Drag and drop multiple files or click to browse
 
-4. Click "Check Syllabus" to analyze the document
+4. Click "Check Syllabi" to analyze the documents
 
-5. Review the results showing which requirements were found
+5. Review the results:
+   - Batch summary showing overall statistics (for multiple files)
+   - Individual results for each file with expandable details
+   - Confidence scores for each requirement
 
 ## How It Works
 
