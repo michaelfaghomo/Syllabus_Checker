@@ -7,7 +7,12 @@ venv/
 env/
 ENV/
 uploads/
-*.pdf
-*.docx
 .DS_Store
 *.log
+
+# Test samples - don't commit actual syllabi
+test_samples/*.pdf
+test_samples/*.docx
+test_samples/*.txt
+test_samples/samples_*/
+!test_samples/README.md
