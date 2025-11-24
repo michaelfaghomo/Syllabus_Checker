@@ -108,9 +108,14 @@ class SyllabusChecker:
                     r'(?i)(?:calendar|timeline)\s*:?',
                     r'(?i)(?:week|session|class)\s+\d+.*(?:topic|chapter)',
                     r'(?i)(?:date|dates?)\s+(?:topic|chapter|reading)',
+                    r'(?i)module\s+\d+\s*:?',  # "Module 1: Introduction"
+                    r'(?i)(?:lesson|unit)\s+\d+',  # "Lesson 1", "Unit 1"
+                    r'(?i)(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d+.*(?:topic|chapter|reading)',  # Date-based
+                    r'(?i)\d{1,2}/\d{1,2}.*(?:topic|chapter|assignment)',  # "9/1 - Topic: Intro"
+                    r'(?i)(?:see|refer to|attached)\s+(?:schedule|calendar)',  # References to external schedule
                 ],
-                'context_keywords': ['schedule', 'week', 'calendar', 'topic', 'date'],
-                'min_matches': 2  # Need multiple weeks mentioned
+                'context_keywords': ['schedule', 'week', 'calendar', 'topic', 'date', 'module', 'lesson', 'unit'],
+                'min_matches': 1  # Reduced from 2 - any clear schedule indicator
             },
             'final_exam': {
                 'name': 'Final exam date and time',
@@ -130,11 +135,36 @@ class SyllabusChecker:
                     r'(?i)grading\s*scale\s*:?',
                     r'(?i)grade\s*scale\s*:?',
                     r'(?i)letter\s*grades?\s*:?',
-                    r'[A-F]\s*[=:]\s*\d+',  # A = 90
-                    r'\d+\s*[-–]\s*\d+\s*[=:]\s*[A-F]',  # 90-100 = A
-                    r'(?i)(?:94|90).*?[=:]\s*a',  # Common A cutoffs
+                    r'[A-F]\s*[=:≥≤><]\s*\d+\.?\d*',  # A = 90, A ≥ 89.01, A > 90
+                    r'\d+\.?\d*\s*[-–]\s*\d+\.?\d*\s*[=:]\s*[A-F]',  # 90-100 = A, 89.01-100 = A
+                    r'(?i)(?:94|90).*?[=:≥>]\s*a',  # Common A cutoffs with various operators
+                    # Synonyms for "scale"
+                    r'(?i)grading\s*(?:rubric|criteria|standards?)\s*:?',  # "Grading rubric"
+                    r'(?i)grade\s*(?:rubric|criteria|standards?)\s*:?',  # "Grade criteria"
+                    r'(?i)grading\s*(?:system|scheme|structure)\s*:?',  # "Grading system"
+                    r'(?i)grade\s*(?:system|scheme|structure)\s*:?',  # "Grade scheme"
+                    r'(?i)letter\s*grade\s*(?:distribution|assignment)\s*:?',  # "Letter grade distribution"
+                    r'(?i)(?:final|course)\s*grade\s*(?:determination|calculation)\s*:?',  # "Final grade determination"
+                    r'(?i)grading\s*(?:policy|guidelines?)\s*:?',  # "Grading policy"
+                    r'(?i)(?:how|basis\s+for)\s+(?:final\s+)?grades?\s+(?:are\s+)?(?:determined|assigned|calculated)',  # "How grades are determined"
+                    r'(?i)grade\s+ranges?\s*:?',  # "Grade ranges"
+                    r'(?i)percentage\s+(?:scale|breakdown|ranges?)\s*:?',  # "Percentage scale"
+                    r'(?i)numeric\s+(?:grade|grading)\s*:?',  # "Numeric grading"
+                    # Percentage-based scales
+                    r'[A-F]\s*[=:≥≤><]\s*\d+\.?\d*\s*%',  # A = 90%, A > 89.999%
+                    r'\d+\.?\d*\s*%\s*[-–]\s*\d+\.?\d*\s*%\s*[=:]\s*[A-F]',  # 90%-100% = A
+                    r'[A-F]\s*[=:≥≤><]\s*\d+\.?\d*\s*[-–]\s*\d+\.?\d*\s*%',  # A = 90-100%, A ≥ 90%
+                    # Decimal-based scales (GPA style)
+                    r'[A-F][+-]?\s*[=:]\s*[0-4]\.\d+',  # A = 4.0, B+ = 3.3
+                    r'[0-4]\.\d+\s*[=:]\s*[A-F]',  # 4.0 = A
+                    r'(?i)(?:gpa|grade\s+point)\s*(?:scale|equivalent)',  # GPA scale
+                    # Points-based scales
+                    r'[A-F]\s*[=:≥≤><]\s*\d+\.?\d*\s*(?:[-–]\s*\d+\.?\d*\s*)?(?:total\s+)?(?:points?|pts)\.?',  # A ≥ 89.01 total pts.
+                    r'\d+\.?\d*\s*[-–]\s*\d+\.?\d*\s*(?:points?|pts)\s*[=:]\s*[A-F]',  # 90-100 points = A
+                    r'(?i)(?:points?|pts)\s*(?:scale|system|based)',  # Points scale
+                    r'(?i)out\s+of\s+\d+\.?\d*\s*(?:total\s+)?(?:points?|pts)',  # out of 1000 points, out of 100.5 total pts
                 ],
-                'context_keywords': ['grading', 'grade', 'scale', 'letter', 'percentage'],
+                'context_keywords': ['grading', 'grade', 'scale', 'letter', 'percentage', 'rubric', 'criteria', 'system', 'scheme', 'ranges', 'points', 'gpa', 'decimal', 'total', 'distribution'],
                 'min_matches': 2  # Need actual scale, not just mention
             },
             'grade_weights': {
@@ -145,9 +175,13 @@ class SyllabusChecker:
                     r'(?i)(?:exam|quiz|homework|assignment|project|participation)s?\s*[:=]\s*\d+\s*%',
                     r'(?i)grade\s+(?:breakdown|composition|distribution)\s*:?',
                     r'(?i)(?:worth|counts?\s+(?:for|as))\s+\d+\s*%',
+                    r'(?i)(?:exam|quiz|test)s?\s+\d+%',  # "Exams 40%"
+                    r'(?i)(?:total|sum)\s+(?:points|pts)',  # Point-based systems
+                    r'\d+\s*(?:points|pts)\s*(?:each|total)',  # "100 points each"
+                    r'(?i)(?:grading|grade)\s+(?:policy|breakdown|criteria)',  # Alternative headers
                 ],
-                'context_keywords': ['weight', 'percent', 'breakdown', 'distribution', 'points'],
-                'min_matches': 3  # Need multiple categories
+                'context_keywords': ['weight', 'percent', 'breakdown', 'distribution', 'points', 'grade', 'evaluation'],
+                'min_matches': 2  # Reduced from 3 to catch more edge cases
             },
             'syllabus_policy_link': {
                 'name': 'Link to VCU Syllabus Policy Statements',
