@@ -1,0 +1,748 @@
+{
+  "timestamp": "2025-11-24T16:24:52.544609",
+  "summary": {
+    "total_files": 3,
+    "average_score": 88.13333333333333,
+    "total_recommendations": 4
+  },
+  "analyses": [
+    {
+      "filename": "BUSN 301 FA25 Maynard.docx",
+      "text_length": 12107,
+      "urls_count": 21,
+      "urls": [
+        "https://quinncia.io/access",
+        "https://vcu.joinhandshake.com/login",
+        "https://www.linkedin.com",
+        "https://careers.vcu.edu/resources/suit-yourself/",
+        "https://ts.vcu.edu/software-center/general-purpose/microsoft-office/how-to-download-microsoft-office-onto-your-pc/",
+        "https://students.vcu.edu/studentconduct/",
+        "http://go.vcu.edu/syllabus",
+        "https://students.vcu.edu/studentconduct/",
+        "https://careers.vcu.edu/resources/suit-yourself/",
+        "https://www.linkedin.com",
+        "http://go.vcu.edu/syllabus",
+        "https://ts.vcu.edu/software-center/general-purpose/microsoft-office/how-to-download-microsoft-office-onto-your-pc/",
+        "https://community.canvaslms.com/docs/DOC-10461-supported-web-browsers",
+        "https://vcu.joinhandshake.com/login",
+        "https://saeo.vcu.edu/",
+        "https://counseling.vcu.edu/services/online-students-at-vcu/",
+        "https://saeo.vcu.edu/registration/process/",
+        "https://writing.vcu.edu/",
+        "https://clc.vcu.edu/tutoring/",
+        "http://www.grammarly.com",
+        "https://quinncia.io/access"
+      ],
+      "score": 78.6,
+      "required_found": 11,
+      "required_total": 14,
+      "recommended_found": 2,
+      "recommended_total": 2,
+      "required_items": [
+        {
+          "name": "Course prefix and number, section number, and title",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: \\b[A-Z]{2,4}\\s*-?\\s*\\d{3,4}..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Semester term and credit hours",
+          "found": true,
+          "confidence": 75.0,
+          "details": [
+            "Pattern match: \\d+\\s*credit\\s*hours?...",
+            "Pattern match: \\d+\\s*credits?(?!\\s*towards)..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Class meeting days/times/location",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: \\d{1,2}:\\d{2}\\s*(?:am|pm|AM|PM...",
+            "Pattern match: (?i)(monday|tuesday|wednesday|...",
+            "Pattern match: (?i)(mon|tue|wed|thu|fri|sat|s..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Instructor name, contact information, and office hours",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: (?i)(instructor|professor|dr\\....",
+            "Pattern match: [\\w\\.-]+@[\\w\\.-]+\\.edu...",
+            "Pattern match: \\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "University course description",
+          "found": true,
+          "confidence": 68.0,
+          "details": [
+            "Pattern match: (?i)course\\s*description\\s*:?...",
+            "Pattern match: (?i)description\\s*:?\\s*(?:this..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course prerequisites",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: (?i)required\\s+courses?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Student learning outcomes",
+          "found": true,
+          "confidence": 68.0,
+          "details": [
+            "Pattern match: (?i)(?:upon\\s+completion|by\\s+...",
+            "Pattern match: (?i)students?\\s+will\\s+be\\s+ab..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Required texts and/or course materials",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: (?i)course\\s+materials?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course schedule",
+          "found": true,
+          "confidence": 67.5,
+          "details": [
+            "Pattern match: (?i)(?:course|class|weekly|ten...",
+            "Pattern match: (?i)(?:calendar|timeline)\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Final exam date and time",
+          "found": false,
+          "confidence": 10.0,
+          "details": [],
+          "status": "FAIL"
+        },
+        {
+          "name": "Grading scale",
+          "found": true,
+          "confidence": 99.2,
+          "details": [
+            "Pattern match: (?i)letter\\s*grades?\\s*:?...",
+            "Pattern match: (?i)grading\\s*(?:policy|guidel...",
+            "Pattern match: (?i)(?:points?|pts)\\s*(?:scale..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Grade categories and weights",
+          "found": false,
+          "confidence": 35.7,
+          "details": [
+            "Pattern match: (?i)(?:grading|grade)\\s+(?:pol..."
+          ],
+          "status": "FAIL"
+        },
+        {
+          "name": "Link to VCU Syllabus Policy Statements",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Found URL: http://go.vcu.edu/syllabus...",
+            "Found URL: http://go.vcu.edu/syllabus..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "VCU Libraries statement and link",
+          "found": false,
+          "confidence": 14.3,
+          "details": [
+            "Text pattern: (?i)library.*?(?:resources|ser..."
+          ],
+          "status": "FAIL"
+        }
+      ],
+      "recommended_items": [
+        {
+          "name": "Attendance and punctuality policies",
+          "found": true,
+          "confidence": 42.0,
+          "details": [
+            "Pattern match: (?i)(?:absence|absent)s?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Technology and media policies",
+          "found": true,
+          "confidence": 43.3,
+          "details": [
+            "Pattern match: (?i)(?:cell|mobile)\\s+phones?..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "missing_required": [
+        {
+          "name": "Final exam date and time",
+          "found": false,
+          "confidence": 10.0,
+          "details": [],
+          "status": "FAIL"
+        },
+        {
+          "name": "Grade categories and weights",
+          "found": false,
+          "confidence": 35.7,
+          "details": [
+            "Pattern match: (?i)(?:grading|grade)\\s+(?:pol..."
+          ],
+          "status": "FAIL"
+        },
+        {
+          "name": "VCU Libraries statement and link",
+          "found": false,
+          "confidence": 14.3,
+          "details": [
+            "Text pattern: (?i)library.*?(?:resources|ser..."
+          ],
+          "status": "FAIL"
+        }
+      ],
+      "low_confidence": [
+        {
+          "name": "Course prefix and number, section number, and title",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: \\b[A-Z]{2,4}\\s*-?\\s*\\d{3,4}..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course prerequisites",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: (?i)required\\s+courses?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Required texts and/or course materials",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: (?i)course\\s+materials?\\s*:?..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "false_negatives": []
+    },
+    {
+      "filename": "INFO 370 Fall 2025 syllabus.pdf",
+      "text_length": 6809,
+      "urls_count": 1,
+      "urls": [
+        "http://go.vcu.edu/syllabus"
+      ],
+      "score": 92.9,
+      "required_found": 13,
+      "required_total": 14,
+      "recommended_found": 2,
+      "recommended_total": 2,
+      "required_items": [
+        {
+          "name": "Course prefix and number, section number, and title",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: \\b[A-Z]{2,4}\\s*-?\\s*\\d{3,4}..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Semester term and credit hours",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: (?i)(fall|spring|summer|winter...",
+            "Pattern match: \\d+\\s*credit\\s*hours?...",
+            "Pattern match: \\d+\\s*credits?(?!\\s*towards)..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Class meeting days/times/location",
+          "found": true,
+          "confidence": 66.7,
+          "details": [
+            "Pattern match: \\d{1,2}:\\d{2}\\s*(?:am|pm|AM|PM...",
+            "Pattern match: (?i)(mon|tue|wed|thu|fri|sat|s..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Instructor name, contact information, and office hours",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: (?i)(instructor|professor|dr\\....",
+            "Pattern match: [\\w\\.-]+@[\\w\\.-]+\\.edu...",
+            "Pattern match: (?i)office\\s*hours?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "University course description",
+          "found": false,
+          "confidence": 4.0,
+          "details": [],
+          "status": "FAIL"
+        },
+        {
+          "name": "Course prerequisites",
+          "found": true,
+          "confidence": 68.0,
+          "details": [
+            "Pattern match: (?i)prerequisite\\s*:?...",
+            "Pattern match: (?i)prereq\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Student learning outcomes",
+          "found": true,
+          "confidence": 34.0,
+          "details": [
+            "Pattern match: (?i)course\\s*objectives?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Required texts and/or course materials",
+          "found": true,
+          "confidence": 72.0,
+          "details": [
+            "Pattern match: (?i)required\\s+(?:text|book|ma...",
+            "Pattern match: ISBN[:\\s-]*\\d..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course schedule",
+          "found": true,
+          "confidence": 40.0,
+          "details": [
+            "Pattern match: (?i)(?:calendar|timeline)\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Final exam date and time",
+          "found": true,
+          "confidence": 40.0,
+          "details": [
+            "Pattern match: (?i)final\\s+exam\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Grading scale",
+          "found": true,
+          "confidence": 97.7,
+          "details": [
+            "Pattern match: (?i)grading\\s*scale\\s*:?...",
+            "Pattern match: (?i)letter\\s*grades?\\s*:?...",
+            "Pattern match: [A-F]\\s*[=:]\\s*\\d+..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Grade categories and weights",
+          "found": true,
+          "confidence": 95.7,
+          "details": [
+            "Pattern match: \\d+\\s*%...",
+            "Pattern match: (?i)(?:weight|weigh)s?\\s*:?...",
+            "Pattern match: (?i)(?:exam|quiz|test)s?\\s+\\d+..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Link to VCU Syllabus Policy Statements",
+          "found": true,
+          "confidence": 96.0,
+          "details": [
+            "Found URL: http://go.vcu.edu/syllabus..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "VCU Libraries statement and link",
+          "found": true,
+          "confidence": 40,
+          "details": [
+            "Text pattern: (?i)vcu\\s+libraries?...",
+            "Text pattern: (?i)use\\s+vcu\\s+libraries?...",
+            "Text pattern: (?i)library\\s+resources..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "recommended_items": [
+        {
+          "name": "Attendance and punctuality policies",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: (?i)(?:absence|absent)s?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Technology and media policies",
+          "found": true,
+          "confidence": 40.0,
+          "details": [
+            "Pattern match: (?i)(?:cell|mobile)\\s+phones?..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "missing_required": [
+        {
+          "name": "University course description",
+          "found": false,
+          "confidence": 4.0,
+          "details": [],
+          "status": "FAIL"
+        }
+      ],
+      "low_confidence": [
+        {
+          "name": "Course prefix and number, section number, and title",
+          "found": true,
+          "confidence": 38.0,
+          "details": [
+            "Pattern match: \\b[A-Z]{2,4}\\s*-?\\s*\\d{3,4}..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Student learning outcomes",
+          "found": true,
+          "confidence": 34.0,
+          "details": [
+            "Pattern match: (?i)course\\s*objectives?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course schedule",
+          "found": true,
+          "confidence": 40.0,
+          "details": [
+            "Pattern match: (?i)(?:calendar|timeline)\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Final exam date and time",
+          "found": true,
+          "confidence": 40.0,
+          "details": [
+            "Pattern match: (?i)final\\s+exam\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "VCU Libraries statement and link",
+          "found": true,
+          "confidence": 40,
+          "details": [
+            "Text pattern: (?i)vcu\\s+libraries?...",
+            "Text pattern: (?i)use\\s+vcu\\s+libraries?...",
+            "Text pattern: (?i)library\\s+resources..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "false_negatives": []
+    },
+    {
+      "filename": "MGMT303.904_RINP_Custodio_Fall25.08.07.25-Syllabus.pdf",
+      "text_length": 24587,
+      "urls_count": 3,
+      "urls": [
+        "http://go.vcu.edu/syllabus",
+        "https://students.vcu.edu/studentconduct/",
+        "http://go.vcu.edu/syllabus"
+      ],
+      "score": 92.9,
+      "required_found": 13,
+      "required_total": 14,
+      "recommended_found": 2,
+      "recommended_total": 2,
+      "required_items": [
+        {
+          "name": "Course prefix and number, section number, and title",
+          "found": true,
+          "confidence": 42.0,
+          "details": [
+            "Pattern match: \\b[A-Z]{2,4}\\s*-?\\s*\\d{3,4}..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Semester term and credit hours",
+          "found": true,
+          "confidence": 75.0,
+          "details": [
+            "Pattern match: (?i)(fall|spring|summer|winter...",
+            "Pattern match: \\d+\\s*credits?(?!\\s*towards)..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Class meeting days/times/location",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: \\d{1,2}:\\d{2}\\s*(?:am|pm|AM|PM...",
+            "Pattern match: (?i)room\\s*:?\\s*\\w+\\d+...",
+            "Pattern match: (?i)building\\s*:?\\s*\\w+..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Instructor name, contact information, and office hours",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: (?i)(instructor|professor|dr\\....",
+            "Pattern match: [\\w\\.-]+@[\\w\\.-]+\\.edu...",
+            "Pattern match: (?i)office\\s*hours?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "University course description",
+          "found": true,
+          "confidence": 46.0,
+          "details": [
+            "Pattern match: (?i)course\\s*description\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course prerequisites",
+          "found": true,
+          "confidence": 42.0,
+          "details": [
+            "Pattern match: (?i)required\\s+courses?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Student learning outcomes",
+          "found": false,
+          "confidence": 12.0,
+          "details": [],
+          "status": "FAIL"
+        },
+        {
+          "name": "Required texts and/or course materials",
+          "found": true,
+          "confidence": 76.0,
+          "details": [
+            "Pattern match: (?i)textbooks?\\s*:?...",
+            "Pattern match: (?i)course\\s+materials?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course schedule",
+          "found": true,
+          "confidence": 72.5,
+          "details": [
+            "Pattern match: (?i)week\\s+\\d+\\s*:?...",
+            "Pattern match: (?i)module\\s+\\d+\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Final exam date and time",
+          "found": true,
+          "confidence": 45.0,
+          "details": [
+            "Pattern match: (?i)(?:final|exam)\\s+(?:date|t..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Grading scale",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: (?i)grade\\s*scale\\s*:?...",
+            "Pattern match: [A-F]\\s*[=:]\\s*\\d+...",
+            "Pattern match: (?i)grading\\s*(?:rubric|criter..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Grade categories and weights",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Pattern match: \\d+\\s*%...",
+            "Pattern match: (?i)(?:weight|weigh)s?\\s*:?...",
+            "Pattern match: (?i)(?:worth|counts?\\s+(?:for|..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Link to VCU Syllabus Policy Statements",
+          "found": true,
+          "confidence": 100,
+          "details": [
+            "Found URL: http://go.vcu.edu/syllabus...",
+            "Found URL: http://go.vcu.edu/syllabus..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "VCU Libraries statement and link",
+          "found": true,
+          "confidence": 40,
+          "details": [
+            "Text pattern: (?i)vcu\\s+libraries?...",
+            "Text pattern: (?i)use\\s+vcu\\s+libraries?...",
+            "Text pattern: (?i)library\\s+resources..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "recommended_items": [
+        {
+          "name": "Attendance and punctuality policies",
+          "found": true,
+          "confidence": 42.0,
+          "details": [
+            "Pattern match: (?i)(?:absence|absent)s?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Technology and media policies",
+          "found": true,
+          "confidence": 43.3,
+          "details": [
+            "Pattern match: (?i)(?:cell|mobile)\\s+phones?..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "missing_required": [
+        {
+          "name": "Student learning outcomes",
+          "found": false,
+          "confidence": 12.0,
+          "details": [],
+          "status": "FAIL"
+        }
+      ],
+      "low_confidence": [
+        {
+          "name": "Course prefix and number, section number, and title",
+          "found": true,
+          "confidence": 42.0,
+          "details": [
+            "Pattern match: \\b[A-Z]{2,4}\\s*-?\\s*\\d{3,4}..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "University course description",
+          "found": true,
+          "confidence": 46.0,
+          "details": [
+            "Pattern match: (?i)course\\s*description\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Course prerequisites",
+          "found": true,
+          "confidence": 42.0,
+          "details": [
+            "Pattern match: (?i)required\\s+courses?\\s*:?..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "Final exam date and time",
+          "found": true,
+          "confidence": 45.0,
+          "details": [
+            "Pattern match: (?i)(?:final|exam)\\s+(?:date|t..."
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "VCU Libraries statement and link",
+          "found": true,
+          "confidence": 40,
+          "details": [
+            "Text pattern: (?i)vcu\\s+libraries?...",
+            "Text pattern: (?i)use\\s+vcu\\s+libraries?...",
+            "Text pattern: (?i)library\\s+resources..."
+          ],
+          "status": "PASS"
+        }
+      ],
+      "false_negatives": []
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "item": "Course prefix and number, section number, and title",
+      "issue": "Detected with low confidence in 3/3 files (avg: 39.3%)",
+      "suggestion": "Strengthen primary patterns, add more specific keywords, increase min_matches threshold"
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "Course prerequisites",
+      "issue": "Detected with low confidence in 2/3 files (avg: 40.0%)",
+      "suggestion": "Strengthen primary patterns, add more specific keywords, increase min_matches threshold"
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "Final exam date and time",
+      "issue": "Detected with low confidence in 2/3 files (avg: 42.5%)",
+      "suggestion": "Strengthen primary patterns, add more specific keywords, increase min_matches threshold"
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "VCU Libraries statement and link",
+      "issue": "Detected with low confidence in 2/3 files (avg: 40.0%)",
+      "suggestion": "Strengthen primary patterns, add more specific keywords, increase min_matches threshold"
+    }
+  ]
+}
