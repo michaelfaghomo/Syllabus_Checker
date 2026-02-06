@@ -23,8 +23,8 @@ def debug_syllabus(filepath):
         return
     
     print_section("VCU SYLLABUS CHECKER - DEBUG MODE", '=')
-    print(f"📄 File: {filepath}")
-    print(f"📊 Size: {os.path.getsize(filepath):,} bytes")
+    print(f"File: {filepath}")
+    print(f"Size: {os.path.getsize(filepath):,} bytes")
     
     # Initialize checker
     checker = SyllabusChecker()
@@ -33,17 +33,17 @@ def debug_syllabus(filepath):
     print_section("Extracting Text", '-')
     try:
         text = checker.extract_text(filepath)
-        print(f"✅ Successfully extracted {len(text):,} characters")
-        print(f"📝 First 200 characters:")
+        print(f"Successfully extracted {len(text):,} characters")
+        print(f"First 200 characters:")
         print(f"   {text[:200].replace(chr(10), ' ')[:200]}...")
     except Exception as e:
-        print(f"❌ Error extracting text: {e}")
+        print(f"Error extracting text: {e}")
         return
     
     # Extract URLs
     print_section("Extracting URLs", '-')
     urls = checker.extract_urls(text)
-    print(f"🔗 Found {len(urls)} URLs:")
+    print(f"Found {len(urls)} URLs:")
     for i, url in enumerate(urls[:10], 1):  # Show first 10
         print(f"   {i}. {url}")
     if len(urls) > 10:
@@ -59,15 +59,15 @@ def debug_syllabus(filepath):
     
     # Overall summary
     print_section("Overall Summary", '=')
-    print(f"✅ Required Items Found: {results['required']['found']}/{results['required']['total']}")
-    print(f"📊 Compliance Score: {results['required']['percentage']}%")
-    print(f"💡 Recommended Items: {results['recommended']['found']}/{results['recommended']['total']}")
+    print(f"Required Items Found: {results['required']['found']}/{results['required']['total']}")
+    print(f"Compliance Score: {results['required']['percentage']}%")
+    print(f"Recommended Items: {results['recommended']['found']}/{results['recommended']['total']}")
     
     # Detailed required items
     print_section("Required Items - Detailed Breakdown", '=')
     for item in results['required']['items']:
-        status = "✅" if item['found'] else "❌"
-        confidence_bar = "█" * int(item['confidence'] / 5) + "░" * (20 - int(item['confidence'] / 5))
+        status = "[PASS]" if item['found'] else "[FAIL]"
+        confidence_bar = "|" * int(item['confidence'] / 5) + "." * (20 - int(item['confidence'] / 5))
         
         print(f"\n{status} {item['name']}")
         print(f"   Confidence: [{confidence_bar}] {item['confidence']}%")
@@ -75,16 +75,18 @@ def debug_syllabus(filepath):
         if item.get('details'):
             print(f"   Matches found:")
             for detail in item['details']:
-                print(f"      • {detail}")
+                # Sanitize detail string
+                sanitized = detail.encode('ascii', 'ignore').decode('ascii')
+                print(f"      - {sanitized}")
         else:
             if not item['found']:
-                print(f"   ⚠️  Not detected - consider adding clearer labels")
+                print(f"     Not detected - consider adding clearer labels")
     
     # Detailed recommended items
     print_section("Recommended Items - Detailed Breakdown", '=')
     for item in results['recommended']['items']:
-        status = "✅" if item['found'] else "⭕"
-        confidence_bar = "█" * int(item['confidence'] / 5) + "░" * (20 - int(item['confidence'] / 5))
+        status = "[PASS]" if item['found'] else "[FAIL]"
+        confidence_bar = "|" * int(item['confidence'] / 5) + "." * (20 - int(item['confidence'] / 5))
         
         print(f"\n{status} {item['name']}")
         print(f"   Confidence: [{confidence_bar}] {item['confidence']}%")
@@ -92,7 +94,9 @@ def debug_syllabus(filepath):
         if item.get('details'):
             print(f"   Matches found:")
             for detail in item['details']:
-                print(f"      • {detail}")
+                # Sanitize detail string
+                sanitized = detail.encode('ascii', 'ignore').decode('ascii')
+                print(f"      - {sanitized}")
     
     # Recommendations
     print_section("Recommendations", '=')
@@ -101,43 +105,43 @@ def debug_syllabus(filepath):
     low_confidence = [item for item in results['required']['items'] if item['found'] and item['confidence'] < 60]
     
     if missing_required:
-        print("❌ Missing Required Items:")
+        print("Missing Required Items:")
         for item in missing_required:
-            print(f"   • {item['name']}")
+            print(f"   - {item['name']}")
             print(f"     Add this section with a clear header or keywords")
     
     if low_confidence:
-        print("\n⚠️  Low Confidence Items (may need clearer formatting):")
+        print("\nLow Confidence Items (may need clearer formatting):")
         for item in low_confidence:
-            print(f"   • {item['name']} ({item['confidence']}%)")
+            print(f"   - {item['name']} ({item['confidence']}%)")
             print(f"     Consider using clearer section headers")
     
     if not missing_required and not low_confidence:
-        print("🎉 Excellent! All required items are clearly present!")
+        print("Excellent! All required items are clearly present!")
     
     # URL Check
     print_section("URL Verification", '=')
     
     # Check for VCU Provost link
     has_provost = any('provost' in url.lower() for url in urls)
-    print(f"{'✅' if has_provost else '❌'} VCU Provost/Syllabus Policy Link")
+    print(f"{'Found' if has_provost else 'Not Found'} VCU Provost/Syllabus Policy Link")
     if has_provost:
         provost_urls = [url for url in urls if 'provost' in url.lower()]
         print(f"   Found: {provost_urls[0]}")
     else:
-        print(f"   ⚠️  Add: Link to VCU Syllabus Policy Statements")
+        print(f"     Add: Link to VCU Syllabus Policy Statements")
     
     # Check for VCU Library link
     has_library = any('library.vcu.edu' in url.lower() for url in urls)
-    print(f"\n{'✅' if has_library else '❌'} VCU Libraries Link")
+    print(f"\n{'Found' if has_library else 'Not Found'} VCU Libraries Link")
     if has_library:
         library_urls = [url for url in urls if 'library.vcu.edu' in url.lower()]
         print(f"   Found: {library_urls[0]}")
     else:
-        print(f"   ⚠️  Add: https://www.library.vcu.edu/")
+        print(f"     Add: https://www.library.vcu.edu/")
     
     print_section("Debug Complete", '=')
-    print(f"💾 To save these results, redirect output:")
+    print(f"To save these results, redirect output:")
     print(f"   python3 debug_mode.py {filepath} > results.txt")
     print()
 
