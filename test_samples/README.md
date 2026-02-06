@@ -22,7 +22,54 @@ For best algorithm improvement, include syllabi that:
 5. Have prerequisites stated in different ways
 
 ## Current Test Files
-- (Add your test files here)
+- INFO 32o Syllabus 
+    Results:
+        1. Course prefix and number, section number, and title (Y)
+        2. Semester term and credit hours (Y)
+        3. Class meeting days/times/location (if applicable) (Y)
+        4. Instructor name, contact information, and office hours (Y)
+        5. University course description (N)
+        6. Course prerequisites, if anyd (N)
+        7. Student learning outcomes (Y)
+        8. Required texts and/or course materials (Y)
+        9. Course schedule (N)
+        10. Final exam date and time (if applicable) (N/A)
+        11. Grading scale (Y)
+        12. Grade categories and weights (Y)
+        13. Link to the VCU Syllabus Policy Statements on the Provost's Website (Y)
+        14. VCU Libraries statement and link (https://www.library.vcu.edu/) (Y)
+- INFO 370 Syllabus
+    Results:
+        1. Course prefix and number, section number, and title (Y)
+        2. Semester term and credit hours (Y)
+        3. Class meeting days/times/location (if applicable) (Y)
+        4. Instructor name, contact information, and office hours (Y)
+        5. University course description (Y)
+        6. Course prerequisites, if any (Y)
+        7. Student learning outcomes (Y)
+        8. Required texts and/or course materials (Y)
+        9. Course schedule (N)
+        10. Final exam date and time (if applicable) (N)
+        11. Grading scale (Y)
+        12. Grade categories and weights (Y)
+        13. Link to the VCU Syllabus Policy Statements on the Provost's Website (Y)
+        14. VCU Libraries statement and link (https://www.library.vcu.edu/) (Y)
+- INFO 474 Syllabus
+    Results:
+        1. Course prefix and number, section number, and title (Y)
+        2. Semester term and credit hours (Y)
+        3. Class meeting days/times/location (if applicable) (Y)
+        4. Instructor name, contact information, and office hours (Y)
+        5. University course description (Y)
+        6. Course prerequisites, if any (Y)
+        7. Student learning outcomes (Y)
+        8. Required texts and/or course materials (Y)
+        9. Course schedule (Y)
+        10. Final exam date and time (if applicable) (N?A)
+        11. Grading scale (Y)
+        12. Grade categories and weights (Y)
+        13. Link to the VCU Syllabus Policy Statements on the Provost's Website (Y)
+        14. VCU Libraries statement and link (https://www.library.vcu.edu/) (Y)
 
 ## Privacy Note
 ⚠️ **Do not commit actual student or sensitive information to version control.**

@@ -4,6 +4,8 @@ const fileInput = document.getElementById('fileInput');
 const browseBtn = document.getElementById('browseBtn');
 const checkBtn = document.getElementById('checkBtn');
 const fileList = document.getElementById('fileList');
+const addMoreBtn = document.getElementById('addMoreBtn');
+const addMoreInput = document.getElementById('addMoreInput');
 const loadingSection = document.getElementById('loadingSection');
 const loadingMessage = document.getElementById('loadingMessage');
 const progressMessage = document.getElementById('progressMessage');
@@ -19,6 +21,8 @@ let selectedFiles = [];
 // Event Listeners
 browseBtn.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', handleFileSelect);
+addMoreBtn.addEventListener('click', () => addMoreInput.click());
+addMoreInput.addEventListener('change', handleAddMoreFiles);
 checkBtn.addEventListener('click', checkSyllabi);
 newCheckBtn.addEventListener('click', resetForm);
 retryBtn.addEventListener('click', resetForm);
@@ -80,7 +84,56 @@ function handleFiles(files) {
         selectedFiles = validFiles;
         displayFileList();
         uploadArea.style.display = 'none';
+        addMoreBtn.style.display = 'inline-block';
         checkBtn.disabled = false;
+    }
+}
+
+function handleAddMoreFiles(e) {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+        appendFiles(files);
+    }
+    // Clear the input so the same files can be selected again if needed
+    e.target.value = '';
+}
+
+function appendFiles(files) {
+    const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+    const maxSize = 16 * 1024 * 1024; // 16MB
+    
+    const validFiles = [];
+    const errors = [];
+    const duplicates = [];
+    
+    files.forEach(file => {
+        // Check if file already exists
+        const isDuplicate = selectedFiles.some(existingFile => 
+            existingFile.name === file.name && existingFile.size === file.size
+        );
+        
+        if (isDuplicate) {
+            duplicates.push(file.name);
+        } else if (!allowedTypes.includes(file.type)) {
+            errors.push(`${file.name}: Invalid file type`);
+        } else if (file.size > maxSize) {
+            errors.push(`${file.name}: File too large (max 16MB)`);
+        } else {
+            validFiles.push(file);
+        }
+    });
+    
+    if (errors.length > 0) {
+        alert('Some files were skipped:\n' + errors.join('\n'));
+    }
+    
+    if (duplicates.length > 0) {
+        alert('Duplicate files skipped:\n' + duplicates.join('\n'));
+    }
+    
+    if (validFiles.length > 0) {
+        selectedFiles = selectedFiles.concat(validFiles);
+        displayFileList();
     }
 }
 
@@ -130,8 +183,10 @@ function removeFile(index) {
     if (selectedFiles.length === 0) {
         fileList.classList.add('hidden');
         uploadArea.style.display = 'block';
+        addMoreBtn.style.display = 'none';
         checkBtn.disabled = true;
         fileInput.value = '';
+        addMoreInput.value = '';
     } else {
         displayFileList();
     }
@@ -325,12 +380,15 @@ function toggleDetails(button, detailsDiv) {
 }
 
 function createRequirementItem(item) {
+    // Check if this is a N/A (not applicable) item
+    const isNotApplicable = item.bulletin_check && item.bulletin_check.is_applicable === false;
+    
     const div = document.createElement('div');
-    div.className = `requirement-item ${item.found ? 'found' : 'not-found'}`;
+    div.className = `requirement-item ${isNotApplicable ? 'not-applicable' : (item.found ? 'found' : 'not-found')}`;
 
     const icon = document.createElement('div');
     icon.className = 'requirement-icon';
-    icon.textContent = item.found ? '✅' : '❌';
+    icon.textContent = isNotApplicable ? '—' : (item.found ? '✅' : '❌');
 
     const content = document.createElement('div');
     content.className = 'requirement-content';
@@ -341,12 +399,127 @@ function createRequirementItem(item) {
 
     const confidence = document.createElement('div');
     confidence.className = 'requirement-confidence';
-    confidence.textContent = item.found 
-        ? `Detected with ${item.confidence}% confidence`
-        : `Not detected (${item.confidence}% confidence)`;
+    
+    if (isNotApplicable) {
+        confidence.textContent = 'N/A - Not applicable for this course';
+    } else if (item.has_sub_items) {
+        // For items with sub-items, show percentage only
+        const percentage = Math.round(item.partial_credit * 100);
+        confidence.textContent = `Detected: ${percentage}% complete`;
+    } else {
+        confidence.textContent = item.found 
+            ? `Detected with ${item.confidence}% confidence`
+            : `Not detected (${item.confidence}% confidence)`;
+    }
 
     content.appendChild(name);
     content.appendChild(confidence);
+    
+    // Check if there are any details to show
+    const hasDetails = (item.has_sub_items && item.sub_items) || 
+                       item.special_note || 
+                       (item.bulletin_check && item.bulletin_check.official_text && !item.has_sub_items);
+    
+    if (hasDetails) {
+        // Add toggle button for collapsible details
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'details-toggle';
+        toggleBtn.innerHTML = '<span class="toggle-icon">▼</span> Show Details';
+        toggleBtn.onclick = () => {
+            const isExpanded = detailsContainer.classList.toggle('expanded');
+            toggleBtn.innerHTML = isExpanded 
+                ? '<span class="toggle-icon">▲</span> Hide Details'
+                : '<span class="toggle-icon">▼</span> Show Details';
+        };
+        
+        // Create collapsible container for all details
+        const detailsContainer = document.createElement('div');
+        detailsContainer.className = 'details-container';
+        
+        // Add sub-items if available
+        if (item.has_sub_items && item.sub_items) {
+            const subItemsContainer = document.createElement('div');
+            subItemsContainer.className = 'sub-items-container';
+            
+            item.sub_items.forEach(subItem => {
+                const subDiv = document.createElement('div');
+                subDiv.className = `sub-item ${subItem.found ? 'found' : 'not-found'}`;
+                
+                const subIcon = document.createElement('span');
+                subIcon.className = 'sub-item-icon';
+                subIcon.textContent = subItem.found ? '✓' : '✗';
+                
+                const subName = document.createElement('span');
+                subName.className = 'sub-item-name';
+                subName.textContent = subItem.name;
+                
+                subDiv.appendChild(subIcon);
+                subDiv.appendChild(subName);
+                
+                // Add special note for sub-item if available (e.g., partial title match)
+                if (subItem.special_note) {
+                    const subSpecialNote = document.createElement('div');
+                    subSpecialNote.className = 'sub-item-special-note';
+                    subSpecialNote.innerHTML = `<small><span style="color: #f59e0b;">⚠</span> ${subItem.special_note}</small>`;
+                    subDiv.appendChild(subSpecialNote);
+                }
+                
+                // Add bulletin check for course title if available
+                if (subItem.bulletin_check && subItem.bulletin_check.official_text) {
+                    const bulletinNote = document.createElement('div');
+                    bulletinNote.className = 'sub-item-bulletin-note';
+                    bulletinNote.innerHTML = `<small>Official: "${subItem.bulletin_check.official_text}"</small>`;
+                    subDiv.appendChild(bulletinNote);
+                }
+                
+                subItemsContainer.appendChild(subDiv);
+            });
+            
+            detailsContainer.appendChild(subItemsContainer);
+        }
+        
+        // Add special note if available (e.g., final project instead of final exam)
+        if (item.special_note) {
+            const specialNote = document.createElement('div');
+            specialNote.className = 'special-note';
+            specialNote.innerHTML = `<span class="info-icon">ℹ️</span> ${item.special_note}`;
+            detailsContainer.appendChild(specialNote);
+        }
+        
+        // Add bulletin validation info if available (for non-sub-item requirements)
+        if (item.bulletin_check && item.bulletin_check.official_text && !item.has_sub_items) {
+            const bulletinInfo = document.createElement('div');
+            bulletinInfo.className = isNotApplicable ? 'bulletin-validation na' : 'bulletin-validation';
+            
+            const bulletinTitle = document.createElement('strong');
+            bulletinTitle.textContent = 'Official VCU Bulletin:';
+            
+            const officialText = document.createElement('p');
+            officialText.className = 'official-text';
+            officialText.textContent = item.bulletin_check.official_text;
+            
+            if (!isNotApplicable) {
+                const matchStatus = document.createElement('span');
+                matchStatus.className = `match-status ${item.bulletin_check.exact_match ? 'exact' : 'no-match'}`;
+                matchStatus.textContent = item.bulletin_check.exact_match 
+                    ? '✓ Exact match found in syllabus' 
+                    : '✗ Official text not found in syllabus';
+                
+                bulletinInfo.appendChild(bulletinTitle);
+                bulletinInfo.appendChild(officialText);
+                bulletinInfo.appendChild(matchStatus);
+            } else {
+                bulletinInfo.appendChild(bulletinTitle);
+                bulletinInfo.appendChild(officialText);
+            }
+            
+            detailsContainer.appendChild(bulletinInfo);
+        }
+        
+        content.appendChild(toggleBtn);
+        content.appendChild(detailsContainer);
+    }
+
     div.appendChild(icon);
     div.appendChild(content);
 
@@ -365,7 +538,9 @@ function resetForm() {
     loadingSection.classList.add('hidden');
     selectedFiles = [];
     fileInput.value = '';
+    addMoreInput.value = '';
     fileList.classList.add('hidden');
     uploadArea.style.display = 'block';
+    addMoreBtn.style.display = 'none';
     checkBtn.disabled = true;
 }
