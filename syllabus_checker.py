@@ -249,6 +249,8 @@ class SyllabusChecker:
                     r'(?i)(?:final|exam)\s+(?:date|time|schedule)',
                     r'(?i)(?:no\s+final\s+exam|final\s+project\s+instead)',  # Explicit alternatives
                     r'(?i)final\s+project\s*:?',  # Final project
+                    r'(?i)(?:semester|capstone|group)\s+project\s*:?',  # Semester/Capstone/Group project
+                    r'(?i)project\s+\d+%',  # "Project 40%" in grade weights
                 ],
                 'context_keywords': ['final', 'exam', 'examination', 'assessment', 'project'],
                 'min_matches': 1
@@ -270,9 +272,7 @@ class SyllabusChecker:
                     # Synonyms for "scale"
                     r'(?i)grading\s*(?:rubric|criteria|standards?)\s*:?',  # "Grading rubric"
                     r'(?i)grade\s*(?:rubric|criteria|standards?)\s*:?',  # "Grade criteria"
-                    r'(?i)grading\s*(?:system|scheme|structure)\s*:?',  # "Grading system"
-                    r'(?i)grade\s*(?:system|scheme|structure)\s*:?',  # "Grade scheme"
-                    r'(?i)letter\s*grade\s*(?:distribution|assignment)\s*:?',  # "Letter grade distribution"
+                    r'(?i)(grading|grade)\s*(?:system|scheme|structure)\s*:?',  # "Grading system"                    r'(?i)letter\s*grade\s*(?:distribution|assignment)\s*:?',  # "Letter grade distribution"
                     r'(?i)(?:final|course)\s*grade\s*(?:determination|calculation)\s*:?',  # "Final grade determination"
                     r'(?i)grading\s*(?:policy|guidelines?)\s*:?',  # "Grading policy"
                     r'(?i)(?:how|basis\s+for)\s+(?:final\s+)?grades?\s+(?:are\s+)?(?:determined|assigned|calculated)',  # "How grades are determined"
@@ -715,7 +715,9 @@ class SyllabusChecker:
                         # Check if "final project" patterns matched
                         final_project_patterns = [
                             r'(?i)final\s+project\s*:?',
-                            r'(?i)(?:no\s+final\s+exam|final\s+project\s+instead)'
+                            r'(?i)(?:no\s+final\s+exam|final\s+project\s+instead)',
+                            r'(?i)(?:semester|capstone|group)\s+project\s*:?',  # Semester/Capstone/Group project
+                            r'(?i)project\s+\d+%'  # "Project 40%" in grade weights
                         ]
                         for pattern in final_project_patterns:
                             if re.search(pattern, text, re.IGNORECASE):
