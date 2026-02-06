@@ -23,8 +23,10 @@ def debug_syllabus(filepath):
         return
     
     print_section("VCU SYLLABUS CHECKER - DEBUG MODE", '=')
+
     print(f"File: {filepath}")
     print(f"Size: {os.path.getsize(filepath):,} bytes")
+
     
     # Initialize checker
     checker = SyllabusChecker()
@@ -33,17 +35,19 @@ def debug_syllabus(filepath):
     print_section("Extracting Text", '-')
     try:
         text = checker.extract_text(filepath)
+
         print(f"Successfully extracted {len(text):,} characters")
         print(f"First 200 characters:")
         print(f"   {text[:200].replace(chr(10), ' ')[:200]}...")
     except Exception as e:
         print(f"Error extracting text: {e}")
-        return
+
     
     # Extract URLs
     print_section("Extracting URLs", '-')
     urls = checker.extract_urls(text)
     print(f"Found {len(urls)} URLs:")
+
     for i, url in enumerate(urls[:10], 1):  # Show first 10
         print(f"   {i}. {url}")
     if len(urls) > 10:
